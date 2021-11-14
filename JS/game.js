@@ -90,6 +90,8 @@ function spinwheel(){
         callbackScope:this,
         onComplete:function(){
     this.game_text.setText("You won "+ prizes_config.prizes_names[idx]);
+    document.querySelector("#afterSpin").style.display='block'
+    // alert('die it!!!')
         }
     })
     }

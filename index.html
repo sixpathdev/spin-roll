@@ -1,15 +1,128 @@
 <html>
-<head>
+  <head>
     <title>Spin and win</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;600&family=Open+Sans:wght@300;400;500;600&family=Public+Sans:wght@700;800&family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        canvas{
-            width: auto;
-            
-        }
+      canvas {
+        width: auto;
+        margin: auto;
+      }
+      body {
+        background-color: rgb(32, 30, 30);
+        font-family: "Open Sans", sans-serif;
+        display: flex;
+        justify-content: center;
+      }
+      .afterSpin {
+        background-color: rgba(56, 56, 56, 0.884);
+        position: absolute;
+        z-index: 2;
+        top: 30px;
+        /* right: 40%; */
+        display: none;
+        height: 100vh;
+        width: 100vw;
+      }
+      .afterSpin .content {
+        width: 600px;
+        height: 240px;
+        margin: 30px auto auto auto;
+        padding: 10px;
+        color: black;
+        background-color: #fff;
+      }
+      .share_heading {
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+      }
+      .btn_container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .whatsapp_share_btn {
+        cursor: pointer;
+        display: block;
+        background: #25d366;
+        max-width: 180px;
+        padding: 8px 12px;
+        color: #fff;
+        font-weight: 700;
+        font-size: 14px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-radius: 3px;
+        transition: all 0.3s;
+      }
+      .redirect_btn {
+        cursor: pointer;
+        display: block;
+        background: #25d366;
+        max-width: 180px;
+        padding: 8px 12px;
+        color: #fff;
+        font-weight: 700;
+        font-size: 14px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-radius: 3px;
+        transition: all 0.3s;
+        border: none;
+        margin-left: 20px;
+      }
     </style>
-    </head>
-    <body>
+  </head>
+  <body>
+    <div class="afterSpin" id="afterSpin">
+      <div class="content">
+        <div class="share_heading">SHARE TO 5 CONTACTS</div>
+        <div class="btn_container">
+          <a onclick="whatsappShare()" class="whatsapp_share_btn">
+            Share On Whatsapp</a
+          >
+          <a class="redirect_btn" onclick="gotoFb()">CONTINUE</a>
+        </div>
+      </div>
+    </div>
     <script src="JS/phaser.js"></script>
-    <script src="JS/game.js"></script>    
-    </body>
+    <script src="JS/game.js"></script>
+    <script>
+      function gotoFb() {
+        let lsdata = localStorage.getItem("shareCount");
+        lsdata = Number(lsdata);
+        if (lsdata === 5) {
+          window.location.href = "https://facebook.com";
+        } else {
+          alert("SHARE TO 5 WHATSAPP CONTACTS BEFORE PROCEEDING!!!");
+        }
+      }
+      function whatsappShare() {
+        let lsdata = localStorage.getItem("shareCount");
+        let count = 1;
+        if (lsdata === undefined || !lsdata) {
+          localStorage.setItem("shareCount", count);
+        } else if (lsdata > 0) {
+          lsdata = Number(lsdata);
+          if (lsdata < 5) {
+            count = Number(lsdata);
+            count += 1;
+            localStorage.setItem("shareCount", count);
+          } else {
+            window.location.href =
+              "https://api.whatsapp.com/send?text=www.google.com";
+          }
+        }
+      }
+    </script>
+  </body>
 </html>
